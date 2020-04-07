@@ -2,44 +2,50 @@ package com.oguzkurtcebe.organization.service.Impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.oguzkurtcebe.organization.dao.ProductRepository;
 import com.oguzkurtcebe.organization.model.Product;
 import com.oguzkurtcebe.organization.service.ProductService;
 
 public class ProductServiceImpl implements ProductService {
 
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@Override
 	public List<Product> findProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = productRepository.findAll();
+		return list;
 	}
 
 	@Override
 	public Product findProduct(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Product product = productRepository.findById(id);
+		return product;
 	}
 
 	@Override
 	public List<Product> findProducts(String category) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = productRepository.findByCategory(category);
+		return list;
 	}
 
 	@Override
 	public void createProduct(Product product) {
-		// TODO Auto-generated method stub
+		productRepository.create(product);
 
 	}
 
 	@Override
 	public void updateProduct(Product product) {
-		// TODO Auto-generated method stub
+		productRepository.update(product);
 
 	}
 
 	@Override
 	public void deleteProduct(Long id) {
-		// TODO Auto-generated method stub
+		productRepository.delete(id);
 
 	}
 
