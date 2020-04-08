@@ -2,12 +2,17 @@ package com.oguzkurtcebe.organization.service.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.oguzkurtcebe.organization.dao.ProductRepository;
 import com.oguzkurtcebe.organization.model.Product;
 import com.oguzkurtcebe.organization.service.ProductService;
 
+@Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
@@ -45,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteProduct(Long id) {
+	
 		productRepository.delete(id);
 
 	}

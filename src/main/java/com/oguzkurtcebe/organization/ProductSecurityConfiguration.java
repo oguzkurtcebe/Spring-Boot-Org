@@ -11,8 +11,8 @@ public class ProductSecurityConfiguration extends AbstractSecurityConfiguration 
 //		// TODO Auto-generated method stub
 	 	
 	 	
-	 	http.antMatcher("/product/**");
-	 	http.authorizeRequests().antMatchers("/product/**").access("hasAnyAuthority('PRODUCT_MANAGER') or hasAnyAuthority('ADMIN')");
+	 	http.antMatcher("/restProduct/**");
+	 	http.authorizeRequests().antMatchers("/restProduct/**").access("hasAnyAuthority('PRODUCT_MANAGER') or hasAnyAuthority('ADMIN')");
 	 	http.csrf().disable();
 	 	http.httpBasic();
 	}

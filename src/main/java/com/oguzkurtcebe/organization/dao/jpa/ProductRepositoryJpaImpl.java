@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import com.oguzkurtcebe.organization.dao.ProductRepository;
 import com.oguzkurtcebe.organization.model.Product;
-
+@Repository
 public class ProductRepositoryJpaImpl implements ProductRepository {
 
 	@PersistenceContext
@@ -26,8 +28,9 @@ public class ProductRepositoryJpaImpl implements ProductRepository {
 
 	@Override
 	public void delete(Long id) {
-		entityManager.remove(id);
-
+		
+		entityManager.remove(entityManager.getReference(Product.class, id));
+       
 	}
 
 	@Override
@@ -38,9 +41,9 @@ public class ProductRepositoryJpaImpl implements ProductRepository {
 
 	@Override
 	public List<Product> findByCategory(String category) {
-		List<Product> resultList = entityManager.createQuery("from Product where category = : category", Product.class)
-				.setParameter("category", category).getResultList();
-		return resultList;
+		return entityManager.createQuery("from Product where category = : category", Product.class)
+				.setParameter("Category", category).getResultList();
+		
 	}
 
 	@Override
