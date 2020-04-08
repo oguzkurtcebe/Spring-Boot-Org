@@ -2,45 +2,50 @@ package com.oguzkurtcebe.organization.dao.jpa;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import com.oguzkurtcebe.organization.dao.InvoiceRepository;
 import com.oguzkurtcebe.organization.model.Invoice;
 
 public class InvoiceRepositoryJpaImpl implements InvoiceRepository {
 
+	@PersistenceContext
+	private EntityManager entityManager;
+	
 	@Override
 	public void create(Invoice invoice) {
-		// TODO Auto-generated method stub
+		entityManager.persist(invoice);
 
 	}
 
 	@Override
 	public Invoice update(Invoice invoice) {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.merge(invoice);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		entityManager.remove(entityManager.getReference(Invoice.class,id));
 
 	}
 
 	@Override
 	public Invoice findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(Invoice.class, id);
 	}
 
 	@Override
 	public List<Invoice> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Invoice> resultList = entityManager.createQuery("from Invoice", Invoice.class).getResultList();
+		return resultList;
 	}
 
 	@Override
 	public List<Invoice> findByOwnerName(String ownerName) {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from Invoice where ownername = : ownerName ", Invoice.class)
+		.setParameter("ownerName", ownerName).getResultList();
+		
 	}
 
 }
