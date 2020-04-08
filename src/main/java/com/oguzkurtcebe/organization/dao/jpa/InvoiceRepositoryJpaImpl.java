@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import com.oguzkurtcebe.organization.dao.InvoiceRepository;
 import com.oguzkurtcebe.organization.model.Invoice;
-
+@Repository("invoiceRepository")
 public class InvoiceRepositoryJpaImpl implements InvoiceRepository {
 
 	@PersistenceContext
@@ -43,7 +45,7 @@ public class InvoiceRepositoryJpaImpl implements InvoiceRepository {
 
 	@Override
 	public List<Invoice> findByOwnerName(String ownerName) {
-		return entityManager.createQuery("from Invoice where ownername = : ownerName ", Invoice.class)
+		return entityManager.createQuery("from Invoice where ownerName = : ownerName ", Invoice.class)
 		.setParameter("ownerName", ownerName).getResultList();
 		
 	}

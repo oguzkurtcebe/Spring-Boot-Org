@@ -2,44 +2,54 @@ package com.oguzkurtcebe.organization.service.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.oguzkurtcebe.organization.dao.InvoiceRepository;
+import com.oguzkurtcebe.organization.model.Invoice;
 import com.oguzkurtcebe.organization.service.InvoiceService;
-
+@Service
+@Transactional
 public class InvoiceServiceImpl implements InvoiceService {
-
+    @Autowired
+	private InvoiceRepository invoiceRepository;
+	
 	@Override
-	public List<InvoiceService> findInvoices() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Invoice> findInvoices() {
+	List<Invoice> list = invoiceRepository.findAll();
+	return list;
 	}
 
 	@Override
-	public List<InvoiceService> findInvoices(String ownerName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Invoice> findInvoices(String ownerName) {
+	
+		return invoiceRepository.findByOwnerName(ownerName);
+	}
+
+	
+	@Override
+	public Invoice findInvoice(Long id) {
+		return invoiceRepository.findById(id);
 	}
 
 	@Override
-	public InvoiceService findInvoice(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void createInvoice(InvoiceService invoice) {
-		// TODO Auto-generated method stub
+	public void createInvoice(Invoice invoice) {
+		invoiceRepository.create(invoice);
 		
 	}
 
 	@Override
-	public void updateInvoice(InvoiceService invoice) {
-		// TODO Auto-generated method stub
+	public void updateInvoice(Invoice invoice) {
+		invoiceRepository.update(invoice);
 		
 	}
 
 	@Override
 	public void deleteInvoice(Long id) {
-		// TODO Auto-generated method stub
+		invoiceRepository.delete(id);
 		
 	}
-
+   
 }
