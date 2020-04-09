@@ -11,8 +11,8 @@ public class InvoiceSecurityConfiguration extends AbstractSecurityConfiguration 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//super.configure(http);
-		http.antMatcher("/invoice/**");
-	 	http.authorizeRequests().antMatchers("/invoice/**").access("hasAnyAuthority('ACCOUANTANT') or hasAnyAuthority('ADMIN')");
+		http.antMatcher("/restInvoice/**");
+	 	http.authorizeRequests().antMatchers("/restInvoice/**").access("hasAnyAuthority('ACCOUANTANT') or hasAnyAuthority('ADMIN')");
 	 	http.csrf().disable();
 	    http.httpBasic();
 	}
