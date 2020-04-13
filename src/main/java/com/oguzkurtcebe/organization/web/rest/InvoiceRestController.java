@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oguzkurtcebe.organization.model.Invoice;
@@ -69,6 +70,10 @@ public class InvoiceRestController {
 		return ResponseEntity.ok(list);
 	}
 
-	
-		
+	@RequestMapping(value="/invoice",method=RequestMethod.GET)
+	public ResponseEntity<List<Invoice>> getInvoices(@RequestParam("on") String ownerName) {
+		List<Invoice> list = invoiceService.findInvoices(ownerName);
+		return ResponseEntity.ok(list);
+	}
+
 }

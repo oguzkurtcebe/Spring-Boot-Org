@@ -45,7 +45,7 @@ public class InvoiceRepositoryJpaImpl implements InvoiceRepository {
 
 	@Override
 	public List<Invoice> findByOwnerName(String ownerName) {
-		return entityManager.createQuery("from Invoice where ownerName = : ownerName ", Invoice.class)
+		return entityManager.createQuery("from Invoice where ownerName = :ownerName ", Invoice.class)
 		.setParameter("ownerName", ownerName).getResultList();
 		
 	}
