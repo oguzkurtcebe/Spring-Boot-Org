@@ -41,8 +41,8 @@ public class ProductRepositoryJpaImpl implements ProductRepository {
 
 	@Override
 	public List<Product> findByCategory(String category) {
-		return entityManager.createQuery("from Product where category = : category", Product.class)
-				.setParameter("Category", category).getResultList();
+		return entityManager.createQuery("from Product where category = :category", Product.class)
+				.setParameter("category", category).getResultList();
 		
 	}
 

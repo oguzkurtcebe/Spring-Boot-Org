@@ -32,8 +32,8 @@ public class ProductRestController {
 		}
 	}
 
-	@RequestMapping(value="product/{id}",method=RequestMethod.PUT)
-	public ResponseEntity<?>updateProduct(@PathVariable("id") Long id,@RequestBody Product product){
+	@RequestMapping(value = "product/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
 		try {
 			product.setProductId(id);
 			productService.updateProduct(product);
@@ -42,28 +42,36 @@ public class ProductRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	@RequestMapping(value="/product/{id}",method=RequestMethod.DELETE)
-	public ResponseEntity<?>deleteProduct(@PathVariable("id") Long id){
+
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
 		try {
-		
+
 			productService.deleteProduct(id);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+
 	@RequestMapping(value = "product/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getProduct(@PathVariable("id") Long id) {
 		Product product = productService.findProduct(id);
 		return ResponseEntity.ok(product);
 	}
 
-
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public ResponseEntity<List<Product>> getProducts() {
 		List<Product> products = productService.findProducts();
 		return ResponseEntity.ok(products);
 	}
+
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	public ResponseEntity<List<Product>> getProducts(@RequestParam("ctgry") String category) {
+
+		List<Product> list = productService.findProducts(category);
+		return ResponseEntity.ok(list);
+
+	}
+
 }
